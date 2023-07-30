@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const routes = require('./routes/index');
 const { auth } = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
+const cors = require('cors');
 const {
   getUserById, updateUserById, login, createUser,
 } = require('./controllers/users');
@@ -14,6 +14,12 @@ const app = express();
 mongoose.connect('mongodb://127.0.0.1/bitfilmsdb', {
   useNewUrlParser: true,
 }).then(() => { console.log('connected db'); });
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
 app.use(requestLogger);
 app.use(bodyParser.json());
 app.post('/signin', login);
