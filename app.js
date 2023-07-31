@@ -12,13 +12,6 @@ const { limiter } = require('./limiter');
 const { errorHandler } = require('./errors/errorHandler');
 
 const app = express();
-require('dotenv').config();
-
-const { NODE_ENV, JWT_SECRET, BASE_URL } = process.env;
-console.log(NODE_ENV, JWT_SECRET, BASE_URL);
-mongoose.connect(BASE_URL, {
-  useNewUrlParser: true,
-}).then(() => { console.log('connected db'); });
 
 
 app.listen(3003, () => {
