@@ -1,17 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const routes = require('./routes/index');
-const { auth } = require('./middlewares/auth');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
+const { errors } = require('celebrate');
 const cors = require('cors');
-const {
-  getUserById, updateUserById, login, createUser,
-} = require('./controllers/users');
+const routes = require('./routes/index');
+
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { limiter } = require('./limiter');
+const { errorHandler } = require('./errors/errorHandler');
 
 const app = express();
+require('dotenv').config();
 
-mongoose.connect('mongodb://127.0.0.1/bitfilmsdb', {
+const { NODE_ENV, JWT_SECRET, BASE_URL } = process.env;
+console.log(NODE_ENV, JWT_SECRET, BASE_URL);
+mongoose.connect(BASE_URL, {
   useNewUrlParser: true,
 }).then(() => { console.log('connected db'); });
 app.use(
@@ -20,27 +25,17 @@ app.use(
     credentials: true,
   }),
 );
+app.use(cookieParser());
 app.use(requestLogger);
 app.use(bodyParser.json());
-app.post('/signin', login);
-app.post('/signup', createUser);
-app.use(errorLogger);
-app.use(auth);
-app.use(routes);
-app.use((err, req, res, next) => {
-  console.log(err);
-  // если у ошибки нет статуса, выставляем 500
-  const { statusCode = 500, message } = err;
+app.use(helmet());
+app.use(limiter);
 
-  res
-    .status(statusCode)
-    .send({
-      // проверяем статус и выставляем сообщение в зависимости от него
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
-});
-app.listen(3003, (req, res) => {
+routes(app);
+app.use(errors());
+app.use(errorLogger);
+app.use(errorHandler);
+
+app.listen(3003, () => {
   console.log('server is running');
 });

@@ -5,17 +5,20 @@ const BadRequestError = require('../errors/bad-request-error');
 const ConflictError = require('../errors/conflict-error');
 const UnauthorizedError = require('../errors/unauthorized');
 
-const getMovies = (req, res, next) => Movie.find({})
-  .then((movie) => res.status(httpConstants.HTTP_STATUS_OK).send(movie))
-  .catch((err) => {
-    if (err.name === 'DocumentNotFoundError') {
-      next(new NotFoundError('фильм или пользователь не найден'));
-    } else if (err.name === 'ValidationError' || err.name === 'CastError') {
-      next(new BadRequestError('переданы некорректные данные в методы создания фильма или пользователя'));
-    } else {
-      next(err);
-    }
-  });
+const getMovies = (req, res, next) => {
+  const owner = req.user._id;
+  Movie.find({ owner })
+    .then((movie) => res.status(httpConstants.HTTP_STATUS_OK).send(movie))
+    .catch((err) => {
+      if (err.name === 'DocumentNotFoundError') {
+        next(new NotFoundError('фильм или пользователь не найден'));
+      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
+        next(new BadRequestError('переданы некорректные данные в методы создания фильма или пользователя'));
+      } else {
+        next(err);
+      }
+    });
+};
 
 const createMovie = (req, res, next) => {
   const newCardData = req.body;
@@ -34,18 +37,30 @@ const createMovie = (req, res, next) => {
 };
 
 const deleteMovie = (req, res, next) => {
-  if (req.user._id === req.body.owner) {
-    Movie.findByIdAndRemove(req.params.cardId)
-      .orFail()
-      .then((card) => res.send({ data: card }))
-      .catch((err) => {
-        if (err.name === 'DocumentNotFoundError') {
-          next(new NotFoundError('фильм или пользователь не найден'));
-        } else if (err.name === 'ValidationError' || err.name === 'CastError') {
-          next(new BadRequestError('переданы некорректные данные в методы создания фильма или пользователя'));
-        }
-      });
-  } else { throw new UnauthorizedError('Недостаточно прав'); }
+  Movie.findById(req.params._id)
+    .then((movie) => {
+      if (movie.owner === req.user._id) {
+        Movie.findByIdAndRemove(req.params._id)
+          .orFail()
+          .then((card) => res.send({ card }))
+          .catch((err) => {
+            if (err.name === 'DocumentNotFoundError') {
+              next(new NotFoundError('фильм или пользователь не найден'));
+            } else if (err.name === 'ValidationError' || err.name === 'CastError') {
+              next(new BadRequestError('переданы некорректные данные в методы создания фильма или пользователя'));
+            }
+          });
+      } else { throw new UnauthorizedError('Недостаточно прав'); }
+    })
+    .catch((err) => {
+      if (err.name === 'DocumentNotFoundError') {
+        next(new NotFoundError('фильм или пользователь не найден'));
+      } else if (err.name === 'ValidationError' || err.name === 'CastError') {
+        next(new BadRequestError('переданы некорректные данные в методы создания фильма или пользователя'));
+      } else {
+        next(err);
+      }
+    });
 };
 module.exports = {
   getMovies,
