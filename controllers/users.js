@@ -49,6 +49,7 @@ const createUser = (req, res, next) => {
     throw new BadRequestError('переданы некорректные данные в методы создания карточки, пользователя, обновления аватара пользователя или профиля');
   }
   return User.find({ email }).select('+password')
+  .orFail()
     .then(() => {
       bcrypt.hash(req.body.password, 10, (err, hash) => User.create({
         email: req.body.email,
