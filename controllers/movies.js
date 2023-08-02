@@ -8,7 +8,7 @@ const UnauthorizedError = require('../errors/unauthorized');
 const getMovies = (req, res, next) => {
   const owner = req.user._id;
   Movie.find({ owner })
-  .orFail()
+    .orFail()
     .then((movie) => res.status(httpConstants.HTTP_STATUS_OK).send(movie))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
@@ -25,7 +25,7 @@ const createMovie = (req, res, next) => {
   const newCardData = req.body;
   newCardData.owner = req.user._id;
   return Movie.create(newCardData)
-  .orFail()
+    .orFail()
     .then((newCard) => res.status(httpConstants.HTTP_STATUS_CREATED).send(newCard))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
