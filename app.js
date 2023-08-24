@@ -22,7 +22,7 @@ mongoose.connect(BASE_URL, {
 app.use(
   cors({
     origin: ["https://api.movies-explorer.nomoreparties.co", "http://api.movies-explorer.nomoreparties.co"],
-    allowedHeaders: ['Content-Type', 'origin', 'Accept', 'Set-Cookie'],
+    allowedHeaders: ['Content-Type', 'origin', 'Accept', 'Set-Cookie', 'Access-Control-Allow-Origin'],
     methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
     preflightContinue: false,
     credentials: true,
