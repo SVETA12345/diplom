@@ -23,6 +23,8 @@ mongoose.connect(BASE_URL, {
 app.use(
   cors({
     origin: ['http://sveta.movies-explorer.nomoredomainsicu.ru', 'http://localhost:3003'],
+    allowedHeaders: ['Content-Type', 'origin', 'Accept', 'Set-Cookie'],
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH', "OPTIONS"],
     credentials: true,
   }),
 );
