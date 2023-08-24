@@ -17,7 +17,7 @@ app.use(function(req, res, next) {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
   res.header('Access-Control-Allow-Origin', origin);
   const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
-
+  const { method } = req;
 // Если это предварительный запрос, добавляем нужные заголовки
 if (method === 'OPTIONS') {
     // разрешаем кросс-доменные запросы любых типов (по умолчанию)
