@@ -21,11 +21,11 @@ mongoose.connect(BASE_URL, {
 }).then(() => { console.log('connected db'); });
 app.use(
   cors({
-    origin: ["https://api.movies-explorer.nomoreparties.co", "http://api.movies-explorer.nomoreparties.co"],
+    origin: true,
     allowedHeaders: ['Content-Type', 'origin', 'Accept', 'Set-Cookie'],
     methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
     preflightContinue: false,
-    credentials: true, // Если используются куки.
+    credentials: true,
   }),
 );
 app.use(cookieParser());
