@@ -22,7 +22,7 @@ mongoose.connect(BASE_URL, {
 }).then(() => { console.log('connected db'); });
 app.use(
   cors({
-    origin: 'http://sveta.movies-explorer.nomoredomainsicu.ru',
+    origin: ['http://sveta.movies-explorer.nomoredomainsicu.ru', 'http://localhost:3003'],
     credentials: true,
   }),
 );
