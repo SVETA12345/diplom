@@ -16,8 +16,16 @@ require('dotenv').config();
 
 app.use(
   cors({
-    origin: true,
-    credentials: true,
+      origin: [
+        'http://api.movies-explorer.nomoreparties.co',
+        'https://api.movies-explorer.nomoreparties.co',
+        'http://localhost:3003',
+        'https://localhost:3003'
+      ],
+      allowedHeaders: ['Content-Type', 'origin', 'Accept', 'Set-Cookie'],
+      methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+      preflightContinue: false,
+      credentials: true, // Если используются куки.
   }),
 );
 
