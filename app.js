@@ -20,6 +20,13 @@ console.log(NODE_ENV, JWT_SECRET, BASE_URL);
 mongoose.connect(BASE_URL, {
   useNewUrlParser: true,
 }).then(() => { console.log('connected db'); });
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS,POST,GET,PATCH');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+  });
 app.use(
   cors({
     origin: ['http://sveta.movies-explorer.nomoredomainsicu.ru', 'http://localhost:3003'],
