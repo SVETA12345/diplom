@@ -24,26 +24,10 @@ const cardSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String, // гендер — это строка
+    type: Object, // гендер — это строка
     required: true, // оно должно быть у каждого пользователя\
-    validate: {
-      validator(v) {
-        return regex.test(v);
-      },
-      message: 'Неправильная ссылка',
-    },
   },
   trailerLink: {
-    type: String, // гендер — это строка
-    required: true, // оно должно быть у каждого пользователя\
-    validate: {
-      validator(v) {
-        return regex.test(v);
-      },
-      message: 'Неправильная ссылка',
-    },
-  },
-  thumbnail: {
     type: String, // гендер — это строка
     required: true, // оно должно быть у каждого пользователя\
     validate: {
@@ -57,7 +41,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  movieId: {
+  id: {
     type: Number,
     required: true,
   },

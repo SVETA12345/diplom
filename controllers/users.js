@@ -29,7 +29,7 @@ const getUserById = (req, res, next) => {
 const updateUserById = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, req.body, { new: true, runValidators: true })
     .orFail()
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.code === 11000) {
         next(new ConflictError('пользователь уже существеут'));
@@ -44,22 +44,23 @@ const updateUserById = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
+  console.log('yes')
   const { email, password } = req.body;
   if (!email || !password) {
+    console.log(1)
     throw new BadRequestError('переданы некорректные данные в методы создания карточки, пользователя, обновления аватара пользователя или профиля');
   }
   return User.find({ email }).select('+password')
-    .orFail()
     .then(() => {
+      console.log(req.body.email)
       bcrypt.hash(req.body.password, 10, (err, hash) => User.create({
         email: req.body.email,
         name: req.body.name,
-        about: req.body.about,
-        avatar: req.body.avatar,
         password: hash, // записываем хеш в базу
       })
         .then(() => res.send({ message: 'Вы успешно зарегистрировались' }))
         .catch((err) => {
+          console.log(err)
           if (err.code === 11000) {
             next(new ConflictError('пользователь уже существеут'));
           } else {
@@ -68,6 +69,7 @@ const createUser = (req, res, next) => {
         }));
     })
     .catch((err) => {
+      console.log(err)
       next(err);
     });
 };
