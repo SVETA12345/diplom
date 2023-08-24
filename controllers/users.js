@@ -102,6 +102,7 @@ const login = (req, res, next) => {
             httpOnly: true,
             sameSite: 'strict',
           });
+          console.log(req.headers)
           console.log('token Back', token);
           res.send({ token });
         });
