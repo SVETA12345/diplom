@@ -15,6 +15,7 @@ const app = express();
 require('dotenv').config();
 app.use(function(req, res, next) {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
+  console.log('origin', origin)
   res.header('Access-Control-Allow-Origin', origin);
   const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
   const { method } = req;
