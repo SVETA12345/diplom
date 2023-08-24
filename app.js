@@ -21,7 +21,7 @@ mongoose.connect(BASE_URL, {
 }).then(() => { console.log('connected db'); });
 app.use(
   cors({
-    origin: true,
+    origin: "https://api.movies-explorer.nomoreparties.co",
     credentials: true,
   }),
 );
