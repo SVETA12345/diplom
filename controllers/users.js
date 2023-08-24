@@ -98,9 +98,10 @@ const login = (req, res, next) => {
           const token = jwt.sign({ _id: admin._id }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', { expiresIn: '7d' });
           // вернём токен
           res.status(200).cookie('jwt', token, {
-            maxAge: 6400000,
+            maxAge: 640000000,
             httpOnly: true,
-            sameSite: 'strict',
+            sameSite: 'none',
+            secure: true
           });
           console.log(req.headers)
           console.log('token Back', token);
