@@ -13,20 +13,26 @@ const { errorHandler } = require('./errors/errorHandler');
 
 const app = express();
 require('dotenv').config();
+app.use(function(req, res, next) {
+  const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
+  res.header('Access-Control-Allow-Origin', origin);
+  const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
 
+// Если это предварительный запрос, добавляем нужные заголовки
+if (method === 'OPTIONS') {
+    // разрешаем кросс-доменные запросы любых типов (по умолчанию)
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', "Content-type");
+}
+
+  next();
+});
 
 const { NODE_ENV, JWT_SECRET, BASE_URL } = process.env;
 console.log(NODE_ENV, JWT_SECRET, BASE_URL);
 mongoose.connect(BASE_URL, {
   useNewUrlParser: true,
 }).then(() => { console.log('connected db'); });
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS,POST,GET,PATCH');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-  });
 app.use(
   cors({
     origin: ['http://sveta.movies-explorer.nomoredomainsicu.ru', 'http://localhost:3003'],
