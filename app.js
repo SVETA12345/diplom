@@ -14,9 +14,9 @@ const { errorHandler } = require('./errors/errorHandler');
 const app = express();
 require('dotenv').config();
 app.use(function(req, res, next) {
-  const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
+   // Сохраняем источник запроса в переменную origin
   console.log('origin', req.headers)
-  res.header('Access-Control-Allow-Origin', origin);
+  res.header('Access-Control-Allow-Origin', req.header.host);
   const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
   const { method } = req;
 // Если это предварительный запрос, добавляем нужные заголовки
