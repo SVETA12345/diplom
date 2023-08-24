@@ -100,8 +100,7 @@ const login = (req, res, next) => {
           res.status(200).cookie('jwt', token, {
             maxAge: 6400000,
             httpOnly: true,
-            sameSite: 'None',
-            secure: true,
+            sameSite: 'strict',
           });
           console.log('token Back', token);
           res.send({ token });
