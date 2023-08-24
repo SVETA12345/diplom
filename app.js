@@ -18,14 +18,15 @@ app.use(function(req, res, next) {
   console.log('origin', req.headers)
   res.header('Access-Control-Allow-Origin', 'http://sveta.movies-explorer.nomoredomainsicu.ru');
   const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
-  res.header('Access-Control-Allow-Headers', "Content-type");
+
+  res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
 // Если это предварительный запрос, добавляем нужные заголовки
 if (method === 'OPTIONS') {
     // разрешаем кросс-доменные запросы любых типов (по умолчанию)
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
 }
 
   next();
