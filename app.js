@@ -23,7 +23,7 @@ app.use(
   cors({
     origin: true,
     allowedHeaders: ['Content-Type', 'origin', 'Accept', 'Set-Cookie'],
-    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH', "OPTIONS"],
     preflightContinue: false,
     credentials: true,
   }),
