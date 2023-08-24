@@ -22,11 +22,11 @@ mongoose.connect(BASE_URL, {
 }).then(() => { console.log('connected db'); });
 app.use(
   cors({
-      origin: true,
+      origin: ['http://localhost:3003'],
       allowedHeaders: ['Content-Type', 'origin', 'Accept', 'Set-Cookie'],
   methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
   preflightContinue: false,
-      credentials: true, // Если используются куки.
+      credentials: true,
   }),
 );
 
