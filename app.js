@@ -22,6 +22,7 @@ mongoose.connect(BASE_URL, {
 }).then(() => { console.log('connected db'); });
 app.use(
   cors({
+    allowedHeaders: ['Content-Type', 'origin', 'Accept', 'Set-Cookie'],
     origin: true,
     credentials: true,
   }),
