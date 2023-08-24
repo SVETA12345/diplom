@@ -16,6 +16,7 @@ require('dotenv').config();
 app.use((req, res, next) => {
   const { origin } = req.headers;
   res.header({"Access-Control-Allow-Origin": origin});
+  res.setHeader('Access-Control-Allow-Credentials', true);
   const { method } = req; // Сохраняем тип запроса (HTTP-метод) в соответствующую переменную
 
 // Значение для заголовка Access-Control-Allow-Methods по умолчанию (разрешены все типы запросов)
