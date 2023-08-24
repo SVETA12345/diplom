@@ -23,6 +23,9 @@ mongoose.connect(BASE_URL, {
 app.use(
   cors({
       origin: true,
+      allowedHeaders: ['Content-Type', 'origin', 'Accept', 'Set-Cookie'],
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+  preflightContinue: false,
       credentials: true, // Если используются куки.
   }),
 );
