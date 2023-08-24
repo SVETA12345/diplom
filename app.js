@@ -22,9 +22,6 @@ app.use(
         'http://localhost:3003',
         'https://localhost:3003'
       ],
-      allowedHeaders: ['Content-Type', 'origin', 'Accept', 'Set-Cookie'],
-      methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
-      preflightContinue: false,
       credentials: true, // Если используются куки.
   }),
 );
