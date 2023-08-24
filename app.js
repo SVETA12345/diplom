@@ -13,7 +13,10 @@ const { errorHandler } = require('./errors/errorHandler');
 
 const app = express();
 require('dotenv').config();
-
+app.use((req, res, next) => {
+  res.header({"Access-Control-Allow-Origin": "*"});
+  next();
+})
 app.use(
   cors({
       origin: [
