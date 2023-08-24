@@ -20,11 +20,12 @@ app.use(function(req, res, next) {
   const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
   res.header('Access-Control-Allow-Headers', "Content-type");
   const { method } = req;
+  const requestHeaders = req.headers['access-control-request-headers'];
 // Если это предварительный запрос, добавляем нужные заголовки
 if (method === 'OPTIONS') {
     // разрешаем кросс-доменные запросы любых типов (по умолчанию)
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', "Content-Type");
+    res.header('Access-Control-Allow-Headers', requestHeaders);
 }
 
   next();
