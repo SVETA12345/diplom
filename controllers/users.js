@@ -103,7 +103,7 @@ const login = (req, res, next) => {
             sameSite: 'none',
             secure: true
           });
-          console.log(req.headers)
+          console.log(req.cookies)
           console.log('token Back', token);
           res.send({ token });
         });
