@@ -5,7 +5,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const auth = (req, res, next) => {
   // тут будет вся авторизация
   console.log('headers', req.cookies.jwt)
-  const authorization = req.headers.cookie;
+  const authorization = req.cookies.jwt;
   if (!authorization) {
     return res
       .status(401)
