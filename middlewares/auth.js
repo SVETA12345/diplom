@@ -4,6 +4,7 @@ require('dotenv').config();
 const { NODE_ENV, JWT_SECRET } = process.env;
 const auth = (req, res, next) => {
   // тут будет вся авторизация
+  console.log(document.cookie)
   console.log('headers', req.cookies.jwt)
   const authorization = req.cookies.jwt;
   if (!authorization) {
