@@ -103,6 +103,7 @@ const login = (req, res, next) => {
             sameSite: 'None',
             secure: true,
           });
+          req.cookies.jwt=token
           console.log(req.cookies)
           console.log('token Back', token);
           res.send({ token });
