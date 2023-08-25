@@ -13,7 +13,7 @@ const { errorHandler } = require('./errors/errorHandler');
 
 const app = express();
 require('dotenv').config();
-
+app.use(cookieParser());
 
 const { NODE_ENV, JWT_SECRET, BASE_URL } = process.env;
 console.log(NODE_ENV, JWT_SECRET, BASE_URL);
@@ -28,7 +28,7 @@ app.use(
   }),
 );
 
-app.use(cookieParser());
+
 app.use(requestLogger);
 app.use(bodyParser.json());
 app.use(helmet());
