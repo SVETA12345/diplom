@@ -102,7 +102,7 @@ const login = (req, res, next) => {
             httpOnly: true,
             sameSite: 'None',
             secure: true,
-            domain: 'nomoredomainsicu.ru'
+            domain: 'localhost'
           });
           req.cookies.jwt=token
           console.log(req.cookies)
