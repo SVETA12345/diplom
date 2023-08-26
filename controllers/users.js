@@ -101,7 +101,8 @@ const login = (req, res, next) => {
             maxAge: 6400000,
             httpOnly: true,
             sameSite: 'None',
-            secure: true
+            secure: true,
+            domain:'sveta.movies-explorer.nomoredomainsicu.ru'
           });
           req.cookies.jwt=token
           console.log(req.cookies)
