@@ -102,7 +102,7 @@ const login = (req, res, next) => {
             httpOnly: true,
             sameSite: 'None',
             secure: true,
-            domain: 'sveta.movies-explorer.nomoredomainsicu.ru'
+            domain: 'nomoredomainsicu.ru'
           });
           req.cookies.jwt=token
           console.log(req.cookies)
