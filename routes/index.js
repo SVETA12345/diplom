@@ -15,7 +15,7 @@ module.exports = function (app) {
   app.use('/users', userRoutes);
   app.use('/movies', cardRoutes);
   app.post('/signout', (req, res) => {
-    res.status(200).clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true, domain: '.movies-explorer.nomoreparties.co' }).send({ message: 'exit' });
+    res.status(200).clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true}).send({ message: 'exit' });
     res.end();
   });
   app.use('*', (req, res) => {
