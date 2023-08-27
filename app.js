@@ -22,7 +22,7 @@ mongoose.connect(BASE_URL, {
 app.use(
   cors({
     allowedHeaders: ['Content-Type', 'origin', 'Accept', 'set-cookie'],
-    origin: ['https://sveta.movies-explorer.nomoredomainsicu.ru/movies', 'https://api.movies-explorer.nomoreparties.co'],
+    origin: true,
     credentials: true,
     preflightContinue: false,
   }),
