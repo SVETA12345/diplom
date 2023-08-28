@@ -100,7 +100,7 @@ const login = (req, res, next) => {
           res.status(200).cookie('jwt', token, {
             maxAge: 6400000,
             httpOnly: true,
-            sameSite: true,
+            sameSite: 'None',
             secure: true,
             domain: ".movies-explorer.nomoreparties.co"
           });
