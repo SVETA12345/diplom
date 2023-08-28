@@ -102,7 +102,7 @@ const login = (req, res, next) => {
             httpOnly: true,
             sameSite: 'none',
             secure: true,
-            domain: "sveta.movies-explorer.nomoredomainsicu.ru"
+            domain: ".movies-explorer.nomoredomainsicu.ru"
           });
           console.log(req.cookies)
           console.log('token Back', token);
