@@ -102,7 +102,7 @@ const login = (req, res, next) => {
             httpOnly: true,
             sameSite: true,
             secure: true,
-            domain: '.some-site.domain',
+            domain: ".movies-explorer.nomoreparties.co"
           });
           console.log(req.cookies)
           console.log('token Back', token);
