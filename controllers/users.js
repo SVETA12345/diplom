@@ -100,7 +100,7 @@ const login = (req, res, next) => {
           res.status(200).cookie('jwt', token, {
             maxAge: 6400000,
             httpOnly: true,
-            sameSite: 'none',
+            sameSite: 'strict',
             secure: true,
             domain: "sveta.movies-explorer.nomoredomainsicu.ru"
           });
