@@ -100,9 +100,9 @@ const login = (req, res, next) => {
           res.status(200).cookie('jwt', token, {
             maxAge: 6400000,
             httpOnly: true,
-            sameSite: 'None',
+            sameSite: 'none',
             secure: true,
-            domain: "https://api.movies-explorer.nomoreparties.co"
+            domain: ".movies-explorer.nomoreparties.co"
           });
           console.log(req.cookies)
           console.log('token Back', token);
