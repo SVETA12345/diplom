@@ -10,7 +10,7 @@ const { login, createUser } = require('../controllers/users');
 
 module.exports = function (app) {
   app.post('/signin', loginValidate, login);
-  app.post('/signup', createUser);
+  app.post('/signup', createUserValidate, createUser);
   app.use(auth);
   app.use('/users', userRoutes);
   app.use('/movies', cardRoutes);
