@@ -9,7 +9,7 @@ const {
 const { login, createUser } = require('../controllers/users');
 
 module.exports = function (app) {
-  app.post('/signin', loginValidate, login);
+  app.post('/api/signin', loginValidate, login);
   app.post('/api/signup', createUserValidate, createUser);
   app.use(auth);
   app.use('/users', userRoutes);
