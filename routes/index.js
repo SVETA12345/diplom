@@ -10,7 +10,7 @@ const { login, createUser } = require('../controllers/users');
 
 module.exports = function (app) {
   app.post('/signin', loginValidate, login);
-  app.post('/signup', createUserValidate, createUser);
+  app.post('/signup', createUser);
   app.use(auth);
   app.use('/users', userRoutes);
   app.use('/movies', cardRoutes);
@@ -19,7 +19,6 @@ module.exports = function (app) {
     res.end();
   });
   app.use('*', (req, res) => {
-    console.log('no_url')
     res.status(httpConstants.HTTP_STATUS_NOT_FOUND).send({ message: 'карточка или пользователь не найден' });
   });
 };
