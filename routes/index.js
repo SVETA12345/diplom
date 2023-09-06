@@ -12,9 +12,9 @@ module.exports = function (app) {
   app.post('/api/signin', loginValidate, login);
   app.post('/api/signup', createUserValidate, createUser);
   app.use(auth);
-  app.use('/users', userRoutes);
-  app.use('/movies', cardRoutes);
-  app.post('/signout', (req, res) => {
+  app.use('/api/users', userRoutes);
+  app.use('/api/movies', cardRoutes);
+  app.post('/api/signout', (req, res) => {
     res.status(200).clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true, domain: '.movies-explorer.nomoreparties.co'}).send({ message: 'exit' });
     res.end();
   });
