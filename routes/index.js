@@ -19,6 +19,7 @@ module.exports = function (app) {
     res.end();
   });
   app.use('*', (req, res) => {
+    console.log('no_url')
     res.status(httpConstants.HTTP_STATUS_NOT_FOUND).send({ message: 'карточка или пользователь не найден' });
   });
 };
